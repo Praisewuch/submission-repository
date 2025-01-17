@@ -10,10 +10,10 @@ const PersonsForm = ({newName, handleNameChange,newNumber, handleNumbChange,addN
         }}
       >
         <div>
-          name: <input value={newName} onChange={handleNameChange} />
+          name: <input value={newName} onChange={handleNameChange} required/>
         </div>
         <div>
-          number: <input type='number' value={newNumber} onChange={handleNumbChange} />
+          number: <input type='tel' value={newNumber} onChange={handleNumbChange} required />
         </div>
         <div>
           <button className='btn' type="submit">add</button>

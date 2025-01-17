@@ -25,6 +25,8 @@ const App = () => {
   const [store, setStore] = useState([]);
   const [display, setDisplay] = useState(false)
   const [disp, setDisp] = useState(false)
+  const [newerr, setNewerr] = useState(false)
+  const [dispMess, setDispmess] = useState(false)
 
 
   function handleNameChange(event) {
@@ -62,16 +64,23 @@ const App = () => {
       personMod.create(noteObject)
       .then(returnedObject => {
         console.log(returnedObject);
+        setDisplay(true);
+          setTimeout(() => {
+            setDisplay(false);
+          }, 4000);
+          setNamesave(newName);
+          setNewName("");
+          setNewNumber("");
       }).catch(err => {
-        console.log(err);
+        if(err){
+          console.log(err.response.data.error);
+          setNewerr(err.response.data.error)
+          setDispmess(true)
+          setTimeout(() => {
+            setDispmess(false)
+          }, 4000)
+        }
       })
-      setDisplay(true);
-      setTimeout(() => {
-        setDisplay(false);
-      }, 4000);
-      setNamesave(newName);
-      setNewName("");
-      setNewNumber();
     }
   }
 
@@ -95,6 +104,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <Notify color={'red'} message={`Information of ${errsave} has already been removed from server`} display={disp ? 'block':'none'}/>
       <Notify color={'green'} message={`${namesave} has been added!`} display={display ? 'block':'none'}/>
+      <Notify color={'red'} message={`${newerr}`} display={dispMess ? 'block':'none'}/>
       <Filter search={search} handleSearch={handleSearch} />
       <h1>add a new</h1>
       <PersonsForm
